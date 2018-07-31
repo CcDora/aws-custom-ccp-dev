@@ -1,9 +1,16 @@
-const CONFIG = require('./config.json'); 
 
 window.myCPP = window.myCPP || {};
 
     //replace with the CCP URL for the current Amazon Connect instance
-    const ccpUrl = "https://perficientdemo.awsapps.com/connect/ccp#/";
+    const ccpUrl = "https://kapschivrdemo.awsapps.com/connect/ccp#/";
+
+    //add any contact attributes to be excluded
+
+    const CONFIG = 
+          {
+            "hiddenCA": ["secret"]
+          };
+
 
     connect.core.initCCP(containerDiv, {
         ccpUrl: ccpUrl,        
@@ -35,7 +42,7 @@ window.myCPP = window.myCPP || {};
     function updateContactAttribute(msg){
         const tableRef = document.getElementById('attributesTable').getElementsByTagName('tbody')[0];             
         for (let key in msg) {
-            if (msg.hasOwnProperty(key) && CONFIG.hiddenCA.indexOf(key)!=-1) {
+            if (msg.hasOwnProperty(key) && CONFIG.hiddenCA.indexOf(key)==-1) {
                         let row = tableRef.insertRow(tableRef.rows.length);
                         let cell1 = row.insertCell(0);
                         let cell2 = row.insertCell(1);
